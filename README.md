@@ -32,26 +32,24 @@ terraform apply
 # Look in the K8s cluster for the ACNP created by NSX
 k get acnp -A
 ```
-8.
-9. 
-1. Platform team creates music-store K8s Namespace on the VKS cluster. (TF)
+5. Platform team creates music-store K8s Namespace on the VKS cluster. (TF)
 ```bash
 k config use-context vks-cluster-context
 k create ns music-store
 ```
-9. Platform Team creates Baseline default deny catchall ACNP rule (./k8s/baseline-default-deny.yaml) (kubectl or Gitops)
+6. Platform Team creates Baseline default deny catchall ACNP rule (./k8s/baseline-default-deny.yaml) (kubectl or Gitops)
 ```bash
 cd k8s-vdefend-layered/
 k apply -f ./k8s/baseline-default-deny.yaml
 k get acnp -A
 ``` 
-11. Application Team deploys their metal-music Application via kubectl or Gitops NOTE: Application will not fully work as the internal svc --> svc communication has not been allowed by the application level network policy. (kubectl or Gitops)
+7. Application Team deploys their metal-music Application via kubectl or Gitops NOTE: Application will not fully work as the internal svc --> svc communication has not been allowed by the application level network policy. (kubectl or Gitops)
 ```bash
 git clone https://github.com/tkrausjr/k8s-vdefend-layered.git](https://github.com/modern-apps-5/the-goad.git)
 cd the-goad
 k apply -f ./app/music-store/ -n music-store
 ``` 
-13. Application Team deploys their Application level ACNP rules enabling all all svc-->svc communication between application components within the same Namespace. (kubectl or Gitops)
+8. Application Team deploys their Application level ACNP rules enabling all all svc-->svc communication between application components within the same Namespace. (kubectl or Gitops)
 ```bash
 cd k8s-vdefend-layered/
 k apply -f ./k8s/app-svc-to-svc.yaml
