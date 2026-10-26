@@ -1,7 +1,7 @@
 # k8s-vdefend-layered
 
 Layered Kubernetes network security for the **music-store** app on a VKS cluster, combining
-**VMware vDefend DFW** (NSX, pushed into the cluster as Antrea ClusterNetworkPolicies) with
+**VMware vDefend DFW** (NSX, pushed into the cluster as Antrea ClusterNetworkPolicies)owned by SecOps team with
 **native Antrea policies** owned by the application and platform teams.
 
 Each team owns one layer, works in its own tool, and cannot accidentally override another team's intent.
