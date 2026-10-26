@@ -1,0 +1,79 @@
+# music-store service-to-service allows, native Antrea application tier (250).
+# Evaluated after vDefend (nsx-category-*, 0-4) and before the baseline default deny (253).
+# Mirrors the app flows in main.tf so the app works regardless of what vDefend pushes.
+apiVersion: crd.antrea.io/v1beta1
+kind: ClusterNetworkPolicy
+metadata:
+  name: music-store-app-svc-to-svc
+spec:
+  tier: application
+  priority: 10
+  ingress:
+  - action: Allow
+    name: store-to-cart
+    enableLogging: true
+    appliedTo:
+    - namespaceSelector: &ns
+        matchLabels:
+          kubernetes.io/metadata.name: music-store
+      podSelector:
+        matchLabels:
+          service-name: cart
+    from:
+    - namespaceSelector: *ns
+      podSelector:
+        matchLabels:
+          service-name: store
+    ports:
+    - protocol: TCP
+      port: 5002
+  - action: Allow
+    name: store-to-users
+    enableLogging: true
+    appliedTo:
+    - namespaceSelector: *ns
+      podSelector:
+        matchLabels:
+          service-name: users
+    from:
+    - namespaceSelector: *ns
+      podSelector:
+        matchLabels:
+          service-name: store
+    ports:
+    - protocol: TCP
+      port: 5003
+  - action: Allow
+    name: store-and-cart-to-order
+    enableLogging: true
+    appliedTo:
+    - namespaceSelector: *ns
+      podSelector:
+        matchLabels:
+          service-name: order
+    from:
+    - namespaceSelector: *ns
+      podSelector:
+        matchExpressions:
+        - key: service-name
+          operator: In
+          values: [store, cart]
+    ports:
+    - protocol: TCP
+      port: 5001
+  - action: Allow
+    name: store-to-database
+    enableLogging: true
+    appliedTo:
+    - namespaceSelector: *ns
+      podSelector:
+        matchLabels:
+          service-name: database
+    from:
+    - namespaceSelector: *ns
+      podSelector:
+        matchLabels:
+          service-name: store
+    ports:
+    - protocol: TCP
+      port: 5432

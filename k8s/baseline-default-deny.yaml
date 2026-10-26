@@ -1,0 +1,22 @@
+# Default deny for music-store, enforced in the Antrea baseline tier (priority 253).
+# Evaluation order: vDefend tiers (nsx-category-*, 0-4) -> native Antrea tiers
+# (emergency..application, 50-250) -> K8s NetworkPolicy -> baseline.
+# Anything not allowed by vDefend or by app-team ANNP/ACNP is dropped here.
+#
+# Apply BEFORE removing the vDefend cleanup rule so there is no open window:
+#   kubectl apply -f k8s/baseline-default-deny.yaml
+apiVersion: crd.antrea.io/v1beta1
+kind: ClusterNetworkPolicy
+metadata:
+  name: music-store-baseline-default-deny
+spec:
+  tier: baseline
+  priority: 10
+  appliedTo:
+  - namespaceSelector:
+      matchLabels:
+        kubernetes.io/metadata.name: music-store
+  ingress:
+  - action: Drop
+    name: default-deny-ingress
+    enableLogging: true
