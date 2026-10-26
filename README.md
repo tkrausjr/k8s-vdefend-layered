@@ -32,7 +32,7 @@ terraform apply
 # Look in the K8s cluster for the ACNP created by NSX
 k get acnp -A
 ```
-Platform team creates music-store K8s Namespace on the VKS cluster. (TF)
+1. Platform team creates music-store K8s Namespace on the VKS cluster. (TF)
 ```bash
 k config use-context vks-cluster-context
 k create ns music-store
