@@ -6,7 +6,7 @@ Layered Kubernetes network security for the **music-store** app on a VKS cluster
 
 Each team owns one layer, works in its own tool, and cannot accidentally override another team's intent.
 
-## The layers at a glance
+## The Security layers
 
 | # | Layer | Persona | Tool | Antrea tier (priority) | Source in this repo |
 |---|-------|---------|------|------------------------|---------------------|
