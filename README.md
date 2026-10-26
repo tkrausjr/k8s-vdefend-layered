@@ -19,8 +19,7 @@ Each team owns one layer, works in its own tool, and cannot accidentally overrid
 1. Infrastructure team provisions vSphere Namespace (TF)
 2. Infra team creates Antrea Addonconfig to automatically integrate Antrea CNI to NSX for VKS Clusters in this namespace (TF - Addons)
 3. Infrastructure team provisions VKS Cluster (TF)
-7. Infra team applies Infra Security Guardrail policies controlling traffic into and out of the music-store K8s Namespace. This will get turned into Antrea Cluster Network Policy (ACNP) (TF)
-```bash
+7. Infra team applies Infra Security Guardrail policies controlling traffic into and out of the music-store K8s Namespace. This will get turned into Antrea Cluster Network Policy (ACNP) (TF)```bash
 git clone https://github.com/tkrausjr/k8s-vdefend-layered.git
 cd k8s-vdefend-layered
 cp terraform.tfvars.example terraform.tfvars
@@ -32,7 +31,7 @@ terraform apply
 # Look in the K8s cluster for the ACNP created by NSX
 k get acnp -A
 ```
-8. Platform team creates music-store K8s Namespace on the VKS cluster. (TF)
+1. Platform team creates music-store K8s Namespace on the VKS cluster. (TF)
 ```bash
 k config use-context vks-cluster-context
 k create ns music-store
