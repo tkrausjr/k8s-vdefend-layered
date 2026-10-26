@@ -26,12 +26,35 @@ Each team owns one layer, works in its own tool, and cannot accidentally overrid
    ```
 7. Infra team applies Infra Security Guardrail policies controlling traffic into and out of the music-store K8s Namespace. This will get turned into Antrea Cluster Network Policy (ACNP) (TF)
 ```bash
-git clone https://github.com/NiranEC77/tf4-metal-music-store.git
+git clone https://github.com/tkrausjr/k8s-vdefend-layered.git
+cd k8s-vdefend-layered
+cp terraform.tfvars.example terraform.tfvars
+# NOTE: Update terraform.tfvars with NSX information and Antrea Cluster ID
+terraform init  
+terraform plan
+terraform apply
+# Look in NSX Manager DFW --> Application for the firewall rules.
+# Look in the K8s cluster for the ACNP created by NSX
+k get acnp -A
 ```
 9. Platform Team managing Kubernetes creates Baseline default deny catchall ACNP rule (./k8s/baseline-default-deny.yaml) (kubectl or Gitops)
-10. Application Team deploys their metal-music Application via kubectl or Gitops NOTE: Application will not fully work as the internal svc --> svc communication has not been allowed by the application level network policy. (kubectl or Gitops)
-11. Application Team deploys their Application level ACNP rules enabling all all svc-->svc communication between application components within the same Namespace. (kubectl or Gitops)
-
+```bash
+cd k8s-vdefend-layered/
+k apply -f ./k8s/baseline-default-deny.yaml
+k get acnp -A
+``` 
+11. Application Team deploys their metal-music Application via kubectl or Gitops NOTE: Application will not fully work as the internal svc --> svc communication has not been allowed by the application level network policy. (kubectl or Gitops)
+```bash
+git clone https://github.com/tkrausjr/k8s-vdefend-layered.git](https://github.com/modern-apps-5/the-goad.git)
+cd the-goad
+k apply -f ./app/music-store/ -n music-store
+``` 
+13. Application Team deploys their Application level ACNP rules enabling all all svc-->svc communication between application components within the same Namespace. (kubectl or Gitops)
+```bash
+cd k8s-vdefend-layered/
+k apply -f ./k8s/app-svc-to-svc.yaml
+k get acnp -A
+``` 
 
 
 ## Evaluation order
