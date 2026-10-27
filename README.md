@@ -45,7 +45,7 @@ k get acnp -A
 ``` 
 7. Application Team deploys their metal-music Application via kubectl or Gitops NOTE: Application will not fully work as the internal svc --> svc communication has not been allowed by the application level network policy. (kubectl or Gitops)
 ```bash
-git clone https://github.com/tkrausjr/k8s-vdefend-layered.git](https://github.com/modern-apps-5/the-goad.git)
+git clone https://github.com/modern-apps-5/the-goad.git
 cd the-goad
 k apply -f ./app/music-store/ -n music-store
 ``` 
