@@ -8,7 +8,7 @@
 apiVersion: crd.antrea.io/v1beta1
 kind: ClusterNetworkPolicy
 metadata:
-  name: music-store-baseline-default-deny
+  name: baseline-default-deny
 spec:
   tier: baseline
   priority: 10
