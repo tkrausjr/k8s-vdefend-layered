@@ -17,7 +17,7 @@ Each team owns one layer, works in its own tool, and cannot accidentally overrid
 ## Quickstart - To deploy
 
 1. Infrastructure team provisions vSphere Namespace (TF)
-2. Infra team creates Antrea Addonconfig to automatically integrate Antrea CNI to NSX for VKS Clusters in this namespace (TF - Addons)
+2. Infra team creates Antrea Addonconfig to automatically integrate Antrea CNI to NSX for VKS Clusters in this namespace (TF - Addons) - [Instructions](https://github.com/tkrausjr/vks/blob/main/add-ons/ako/README.md)
 3. Infrastructure team provisions VKS Cluster (TF)
 4. Infra team applies Infra Security Guardrail policies with Terraform controlling traffic into and out of the music-store K8s Namespace. This will get turned into Antrea Cluster Network Policy (ACNP) (TF)
 ```bash
@@ -43,9 +43,9 @@ cd k8s-vdefend-layered/
 k apply -f ./k8s/baseline-default-deny.yaml
 k get acnp -A
 ``` 
-7. Application Team deploys their metal-music Application via kubectl or Gitops NOTE: Application will not fully work as the internal svc --> svc communication has not been allowed by the application level network policy. (kubectl or Gitops)
+7. Application Team deploys their metal-music Application via kubectl or Gitops NOTE: Application will not fully work as the internal svc --> svc communication has not been allowed by the application level network policy. (kubectl or Gitops)[The-goad Repository](https://github.com/modern-apps-5/the-goad/tree/main/app/music-store)
 ```bash
-git clone https://github.com/tkrausjr/k8s-vdefend-layered.git](https://github.com/modern-apps-5/the-goad.git)
+git clone https://github.com/modern-apps-5/the-goad.git
 cd the-goad
 k apply -f ./app/music-store/ -n music-store
 ``` 
@@ -181,6 +181,11 @@ kubectl get traceflow tf-store-cart -o jsonpath='{range .status.results[*].obser
 # Policy log on a node (shows Allow/Drop and the matching policy for logged rules)
 kubectl exec -n kube-system <antrea-agent-pod> -c antrea-agent -- tail -f /var/log/antrea/networkpolicy/np.log
 ```
+
+```bash
+# Run the k8s-pen-test POD to check actual paths from within the cluster [k8s-pen-test REPO](https://github.com/tkrausjr/k8s-pen-test/blob/main/README.md)
+```
+
 
 Expected results:
 
