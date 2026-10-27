@@ -17,7 +17,7 @@ Each team owns one layer, works in its own tool, and cannot accidentally overrid
 ## Quickstart - To deploy
 
 1. Infrastructure team provisions vSphere Namespace (TF)
-2. Infra team creates Antrea Addonconfig to automatically integrate Antrea CNI to NSX for VKS Clusters in this namespace (TF - Addons)
+2. Infra team creates Antrea Addonconfig to automatically integrate Antrea CNI to NSX for VKS Clusters in this namespace (TF - Addons) - [Instructions](https://github.com/tkrausjr/vks/blob/main/add-ons/ako/README.md)
 3. Infrastructure team provisions VKS Cluster (TF)
 4. Infra team applies Infra Security Guardrail policies with Terraform controlling traffic into and out of the music-store K8s Namespace. This will get turned into Antrea Cluster Network Policy (ACNP) (TF)
 ```bash
