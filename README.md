@@ -182,6 +182,11 @@ kubectl get traceflow tf-store-cart -o jsonpath='{range .status.results[*].obser
 kubectl exec -n kube-system <antrea-agent-pod> -c antrea-agent -- tail -f /var/log/antrea/networkpolicy/np.log
 ```
 
+```bash
+# Run the k8s-pen-test POD to check actual paths from within the cluster [k8s-pen-test REPO](https://github.com/tkrausjr/k8s-pen-test/blob/main/README.md)
+```
+
+
 Expected results:
 
 | Flow | Decided by |
