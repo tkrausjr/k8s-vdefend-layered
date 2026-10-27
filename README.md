@@ -43,7 +43,7 @@ cd k8s-vdefend-layered/
 k apply -f ./k8s/baseline-default-deny.yaml
 k get acnp -A
 ``` 
-7. Application Team deploys their metal-music Application via kubectl or Gitops NOTE: Application will not fully work as the internal svc --> svc communication has not been allowed by the application level network policy. (kubectl or Gitops)
+7. Application Team deploys their metal-music Application via kubectl or Gitops NOTE: Application will not fully work as the internal svc --> svc communication has not been allowed by the application level network policy. (kubectl or Gitops)[The-goad Repository](https://github.com/modern-apps-5/the-goad/tree/main/app/music-store)
 ```bash
 git clone https://github.com/modern-apps-5/the-goad.git
 cd the-goad
