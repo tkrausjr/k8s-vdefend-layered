@@ -157,12 +157,14 @@ matches first. Then step 2, then remove the cleanup rule (step 1). That way ther
 
 ## Verify
 
+#### With kubectl
 ```bash
 # What is enforced, and in which tier
 kubectl get tiers --sort-by=.spec.priority
 kubectl get acnp -o custom-columns=NAME:.metadata.name,TIER:.spec.tier,PRIO:.spec.priority
 ```
 
+#### With traceflow
 ```bash
 # Traceflow: which tier/policy decided a flow
 kubectl apply -f - <<EOF
@@ -176,16 +178,17 @@ spec:
 EOF
 kubectl get traceflow tf-store-cart -o jsonpath='{range .status.results[*].observations[?(@.component=="NetworkPolicy")]}{.action} {.networkPolicy}{"\n"}{end}'
 ```
-
+#### With kubectl logs on Antrea Agent Pod
 ```bash
 # Policy log on a node (shows Allow/Drop and the matching policy for logged rules)
 kubectl exec -n kube-system <antrea-agent-pod> -c antrea-agent -- tail -f /var/log/antrea/networkpolicy/np.log
 ```
 
+#### Pen Test attacker POD running inside the K8s cluster
+[k8s-pen-test REPO](https://github.com/tkrausjr/k8s-pen-test/blob/main/README.md)
 ```bash
-# Run the k8s-pen-test POD to check actual paths from within the cluster [k8s-pen-test REPO](https://github.com/tkrausjr/k8s-pen-test/blob/main/README.md)
+git clone https://github.com/tkrausjr/k8s-pen-test/blob/main/README.md
 ```
-
 
 Expected results:
 
