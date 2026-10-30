@@ -15,8 +15,8 @@ RUN curl -LOk "https://dl.k8s.io/release/$(curl -L -s -k https://dl.k8s.io/relea
 
 # Set working directory and copy the script
 WORKDIR /scripts
-COPY waf-demo.sh .
-RUN chmod +x waf-demo.sh
+COPY connectivity-check.sh .
+RUN chmod +x connectivity-check.sh
 
 # Keep the container running or drop into a bash shell
 CMD ["/bin/bash"]
